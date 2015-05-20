@@ -52,12 +52,12 @@ services:
       description: runs cbc pillowfight
       command: |
         cbc-pillowfight -U ${base_url}${bucket} \
-          `if [ -n "$username" ]; then echo -u $username; fi` \
-          `if [ -n "$password" ]; then echo -P $password; fi` \
-          `if [ -n "$num_cycles" ]; then echo -c $num_cycles; fi` \
-          `if [ -n "$min_size" ]; then echo -m $min_size; fi` \
-          `if [ -n "$max_size" ]; then echo -M $max_size; fi` \
-          `if [ -n "$ratio" ]; then echo -r $ratio; fi`
+          ${username:+ -u "$username"} \
+          ${password:+ -P "$password"} \
+          ${num_cycles:+ -c "$num_cycles"} \
+          ${min_size:+ -m "$min_size"} \
+          ${max_size:+ -M "$max_size"} \
+          ${ratio:+ -r "$ratio"} 
       parameters:
         base_url:
           description: base URL (http or couchbases) and list of hosts/port to connect to, including trailing slash
